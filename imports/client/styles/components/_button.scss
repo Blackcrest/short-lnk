@@ -9,9 +9,18 @@
     padding: $default-padding;
     margin-bottom: $default-margin;
 
+    &:focus{
+        outline: none;
+    }
+
     &--link {
         display: inline-block;
         text-decoration: none;
+    }
+
+    &--action{
+        background: transparent;
+        margin: 0;
     }
 
     &--pill {

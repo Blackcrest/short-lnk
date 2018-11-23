@@ -7,7 +7,7 @@ export default class LinksListFilter extends React.Component {
         super(props);
 
         this.state = {
-            showVisible: true
+            showVisible: false
         }
     }
 
@@ -17,23 +17,30 @@ export default class LinksListFilter extends React.Component {
                 showVisible: Session.get('showVisible')
             })
         });
+
+        console.log(Session.get('showVisible'))
     }
 
     componentWillUnmount() {
         this.checkboxTracker.stop();
     }
 
+    checkboxClick(e) {
+        Session.set('showVisible', this.refs.trackCheckbox.checked);
+    }
+
     render() {
         return (
-            <div>
-                <label className="checkbox" >
-                    <input
-                        className="checkbox__box" 
-                        type="checkbox" 
-                        onChange={(e) => { Session.set('showVisible', !e.target.checked);}}
-                        checked={!this.state.showVisible}/>
-                    show hidden links
-                </label>          
+            <div className="checkbox" onClick={this.checkboxClick.bind(this)}>
+                <input
+                    className="checkbox__input" 
+                    ref="trackCheckbox"
+                    type="checkbox"
+                    checked={!this.state.showVisible}
+                    disabled/>
+                <span className="checkbox__label" >
+                    Show private links
+                </span>          
             </div>
         );
     }
