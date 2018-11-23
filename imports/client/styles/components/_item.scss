@@ -1,0 +1,26 @@
+.item-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item {
+    background: $color-grey-light;
+    border: 1px solid darken($color-grey-light, 8%);
+    margin-bottom: $default-margin;
+    padding: $default-padding;
+    width: 100%;
+    max-width: calc(33.33333% - (1.4rem * 2));
+    margin: $default-margin;
+    border-radius: 4px;
+
+    &__message {
+        color: $color-grey-dark;
+    }
+
+    &__status-message {
+        color: $color-grey-dark;
+        font-style: italic;
+        text-align: center;
+        margin: 0;
+    }
+}

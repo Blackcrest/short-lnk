@@ -1,0 +1,8 @@
+.checkbox {
+    display: block;
+    margin-bottom: $default-margin;
+
+    &__box{
+        margin-right: $default-margin /2;
+    }
+}
