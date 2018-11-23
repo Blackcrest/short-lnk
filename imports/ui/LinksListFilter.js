@@ -17,8 +17,6 @@ export default class LinksListFilter extends React.Component {
                 showVisible: Session.get('showVisible')
             })
         });
-
-        console.log(Session.get('showVisible'))
     }
 
     componentWillUnmount() {

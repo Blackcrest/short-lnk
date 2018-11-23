@@ -12,21 +12,25 @@ if(Meteor.isServer) {
 }
 
 Meteor.methods({
-    'links.insert'(url) {
+    'links.insert'(name, url) {
         if(!this.userId){
             throw new Meteor.Error('not-autherized');
         }
 
         new SimpleSchema({
-            url: {
-            type: String,
-            label: 'Your link',
-            regEx: SimpleSchema.RegEx.Url
+            name: {
+                type: String,
+                min: 1
+            }, url: {
+                type: String,
+                label: 'Your link',
+                regEx: SimpleSchema.RegEx.Url
             }
-        }).validate({ url });
+        }).validate({ name, url });
 
         Links.insert({
             _id: ShortId.generate(),
+            name,
             url,
             userId: this.userId,
             visible: true,
