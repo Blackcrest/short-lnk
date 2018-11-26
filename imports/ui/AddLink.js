@@ -60,28 +60,32 @@ export default class AddLink extends React.Component {
                     ariaHideApp={false}
                     onAfterOpen={() => { this.refs.name.focus() }}
                     onRequestClose={this.handleModalClose.bind(this)}
-                    className="boxed-view__box"
+                    className="boxed-view__container"
                     overlayClassName="boxed-view boxed-view--modal">
-                    <h1>Add Link</h1>
-                    {this.state.error ? <p>{this.state.error}</p> : undefined}
-                    <form className="boxed-view__form" onSubmit={this.onSubmit.bind(this)}>
-                        <input 
-                            type="text" 
-                            ref="name"
-                            placeholder="Name"
-                            value={this.state.name}
-                            onChange={this.onChangeName.bind(this)}/>
-                        <input 
-                            type="text"
-                            ref="url"
-                            placeholder="URL" 
-                            value={this.state.url}
-                            onChange={this.onChangeUrl.bind(this)} />
-                        <button className="button">Add Link</button>
-                        <button className="button button--secondary" type="button"  onClick={this.handleModalClose.bind(this)}>
-                        Cancel
-                    </button>
-                    </form>
+                    <div className={"boxed-view__error-box boxed-view__error-box--" + (this.state.error ? 'show' : 'hide' )}>
+                        {this.state.error ? <p>{this.state.error}</p> : undefined}
+                    </div>
+                    <div className="boxed-view__box">
+                        <h1>Add Link</h1>
+                        <form className="boxed-view__form" onSubmit={this.onSubmit.bind(this)}>
+                            <input 
+                                type="text" 
+                                ref="name"
+                                placeholder="Name"
+                                value={this.state.name}
+                                onChange={this.onChangeName.bind(this)}/>
+                            <input 
+                                type="text"
+                                ref="url"
+                                placeholder="URL" 
+                                value={this.state.url}
+                                onChange={this.onChangeUrl.bind(this)} />
+                            <button className="button">Add Link</button>
+                            <button className="button button--secondary" type="button"  onClick={this.handleModalClose.bind(this)}>
+                            Cancel
+                        </button>
+                        </form>
+                    </div>
                 </Modal>
             </div>
         )

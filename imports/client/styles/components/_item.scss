@@ -15,15 +15,19 @@
     &__content{
         padding: $default-padding;
         text-align: center;
+
+        & *{
+            margin: 0;
+        }
     }
 
     &__actions{
         display: flex;
         border-top: 1px solid darken($color-grey-light, 8%);
+        flex-wrap: wrap;
 
         & *{
-            flex-grow: 1;
-            flex-basis: 0;
+            flex: 0 50%;
         }
     }
 

@@ -3,6 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import Clipboard from 'clipboard';
 import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExternalLinkAlt, faCopy, faEyeSlash, faEye, faChartBar } from '@fortawesome/free-solid-svg-icons'
 
 export default class LinkListItem extends React.Component {
     constructor(props){
@@ -48,15 +50,19 @@ export default class LinkListItem extends React.Component {
                 </div>
                 <div className="item__actions">
                     <a className="button button--pill button--link" href={this.props.shortUrl} target="_blank">
-                        Visit
+                        <FontAwesomeIcon icon={faExternalLinkAlt} />
                     </a>
                     <button className="button button--pill" ref="copy" data-clipboard-text={this.props.shortUrl}>
-                        {this.state.justCopied ? 'Copied' : 'Copy' }
+                        {/*{this.state.justCopied ? 'Copied' : 'Copy' }*/}
+                        <FontAwesomeIcon icon={faCopy} />
+                    </button>
+                    <button className="button button--pill" ref="stats" onClick={() => this.props.statAction(this.props)}>
+                        <FontAwesomeIcon icon={faChartBar} />
                     </button>
                     <button className="button button--pill" onClick={() => {
                         Meteor.call('links.setVisibility', this.props._id, !this.props.visible);
                     }}>
-                        {this.props.visible ? "Hide" : "Unhide"}
+                        {this.props.visible ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
                     </button>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Modal from 'react-modal';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker'; 
 import { Session } from 'meteor/session';
@@ -12,7 +13,9 @@ export default class LinksList extends React.Component {
         super(props);
 
         this.state = {
-            links: []
+            links: [],
+            isOpen: false,
+            selectedItem: []
         };
     }
 
@@ -42,9 +45,28 @@ export default class LinksList extends React.Component {
 
         return this.state.links.map((link) => { 
             const shortUrl = Meteor.absoluteUrl(link._id);
-            return <LinkListItem key={link._id} {...link} shortUrl={shortUrl} />;
+            return <LinkListItem 
+                        key={link._id} 
+                        {...link} 
+                        shortUrl={shortUrl} 
+                        statAction={(link) => this.handelModalOpen(link)} />;
         });
     }
+
+    handelModalOpen(item) {
+        console.log(item)
+        this.setState({
+            isOpen: true,
+            selectedItem: item
+        })
+    }
+
+    handleModalClose() {
+        this.setState({ 
+            isOpen: false, 
+            selectedItem: [] 
+        });
+    };
 
     render() {
         return (
@@ -52,6 +74,38 @@ export default class LinksList extends React.Component {
                 <FlipMove className="item-wrapper" maintainContainerHeight={false}>
                     {this.renderLinksListItems()}
                 </FlipMove>
+                <Modal 
+                    isOpen={this.state.isOpen} 
+                    contentLabel="Item stat" 
+                    ariaHideApp={false}
+                    onRequestClose={this.handleModalClose.bind(this)}
+                    className="boxed-view__container"
+                    overlayClassName="boxed-view boxed-view--modal">
+                    <div className="boxed-view__box boxed-view__box--large">
+                        <h1>{this.state.selectedItem.name} Stats</h1>
+                        <div className="stat-table">
+                            <div className="stat-table__item">
+                                <span className="stat-table__label">Url</span>
+                                <span className="stat-table__value">{this.state.selectedItem.url}</span>
+                            </div>
+                            <div className="stat-table__item">
+                                <span className="stat-table__label">Short url</span>
+                                <span className="stat-table__value">{this.state.selectedItem.shortUrl}</span>
+                            </div>
+                            <div className="stat-table__item">
+                                <span className="stat-table__label">Times visited</span>
+                                <span className="stat-table__value">{this.state.selectedItem.visitedCount}</span>
+                            </div>
+                            <div className="stat-table__item">
+                                <span className="stat-table__label">Last visit</span>
+                                <span className="stat-table__value">{this.state.selectedItem.lastVisitedAt}</span>
+                            </div>
+                        </div>
+                        <button className="button button--secondary" type="button"  onClick={this.handleModalClose.bind(this)}>
+                            Close
+                        </button>
+                    </div>
+                </Modal>
             </div>
         );
     }

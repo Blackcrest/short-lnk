@@ -6,6 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 
     &--modal{
         background: fade-out($color-grey, .25);
@@ -17,6 +18,10 @@
 
     }
 
+    &__container{
+        position: relative;
+    }
+
     &__box{
         background: $color-white;
         padding: 2.4rem;
@@ -24,10 +29,40 @@
         width: 30rem;
         border-radius: 4px;
         box-shadow: 1px 4px 10px rgba($color-black, .2);
+
+        &--large{
+            width: 50rem;
+        }
     }
 
     &__form{
         display: flex;
         flex-direction: column;
+    }
+
+    &__error-box{
+        position: absolute;
+        top: -70px;
+        background: $color-white;
+        width: 30rem;
+        margin-bottom: $default-margin;
+        padding: $default-padding;
+        text-align: center;
+        border-radius: 4px;
+        box-shadow: 1px 4px 10px rgba($color-black, .2);
+        transition: all .4s ease-in;
+        color: $color-error;
+
+        &--show{
+            opacity: 1;
+        }
+
+        &--hide{
+            opacity: 0;
+        }
+
+        & p{
+            margin: 0;
+        }
     }
 }
